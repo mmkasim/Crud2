@@ -2,19 +2,17 @@
 include_once('../conexao.php');
 include_once('./DAO.php');
 include_once('./Model.php');
+$id = @$_GET['id'];
 
 //instancia as classes
 $categoriadao = new CategoriaDAO();
-$categorias = [];
-
-if (@$_GET['action'] != 'listar' && @$_GET['msg'] != 'errorlistar') {
-    $categorias = $categoriadao->read();
-}
-
+$categoria = new Categoria();
+$categoria->setId($id);
+if (isset($id)) {
+    $categoria = $categoriadao->readById($categoria);
+};
 
 ?>
-
-
 <!DOCTYPE html>
 <html>
 
@@ -23,16 +21,16 @@ if (@$_GET['action'] != 'listar' && @$_GET['msg'] != 'errorlistar') {
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>INSPINIA | Static Tables</title>
+    <title>INSPINIA | Basic Form</title>
 
     <link href="../css/bootstrap.min.css" rel="stylesheet">
     <link href="../font-awesome/css/font-awesome.css" rel="stylesheet">
-
-    <!-- Toastr style -->
-    <link href="../css/plugins/toastr/toastr.min.css" rel="stylesheet">
-
+    <link href="../css/plugins/iCheck/custom.css" rel="stylesheet">
     <link href="../css/animate.css" rel="stylesheet">
     <link href="../css/style.css" rel="stylesheet">
+
+    <link href="../css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css" rel="stylesheet">
+
 </head>
 
 <body>
@@ -120,61 +118,43 @@ if (@$_GET['action'] != 'listar' && @$_GET['msg'] != 'errorlistar') {
 
                 </div>
             </div>
+
+
             <div class="wrapper wrapper-content animated fadeInRight">
+
 
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="ibox float-e-margins">
                             <div class="ibox-title">
-                                <h5>Lista de categorias </h5>
-
-                                <a href="./form.php" class="btn btn-info btn-sm pull-right" type="button"><i
-                                        class="fa fa-plus"></i><strong> Nova</strong>
-                                </a>
-
+                                <h5><?php echo $categoria->getId() ? 'Editando categoria' : 'Nova categoria' ?></h5>
 
                             </div>
                             <div class="ibox-content">
+                                <form method="post" action="./Controle.php" class="form-horizontal">
+                                    <div class="form-group"><label class="col-sm-2 control-label">Nome</label>
 
-                                <table class="table table-bordered">
-                                    <thead>
-                                        <tr>
-                                            <th>Código</th>
-                                            <th>Nome</th>
-                                            <th>Ações</th>
+                                        <div class="col-sm-10"><input type="text" name="nome"
+                                                value="<?php echo $categoria->getNome() ?>" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="hr-line"></div>
+                                    <input type="hidden" name="id" value="<?= $categoria->getId() ?>" />
 
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <!-- acessando o objeto read dentro da dao -->
-                                        <?php foreach ($categorias as $categoria) : ?>
-                                        <tr>
-                                            <td> <?php echo $categoria->getId(); ?> </td>
-                                            <td> <?php echo $categoria->getNome(); ?> </td>
-                                            <td>
-                                                <a href="./form.php?id=<?php echo $categoria->getId(); ?>"
-                                                    class="btn btn-info btn-sm m-r-sm" type="button"><i
-                                                        class="fa fa-paste"></i>
-                                                    Editar</a>
-                                                <a href="./Controle.php?del=<?php echo $categoria->getId(); ?>"
-                                                    class="btn btn-danger btn-sm" type="button"><i
-                                                        class="fa fa-close"></i>
-                                                    Excluir</a>
-
-                                            </td>
-
-                                        </tr>
-                                        <?php endforeach; ?>
-
-                                    </tbody>
-                                </table>
-
+                                    <div class="hr-line-dashed"></div>
+                                    <div class="form-group">
+                                        <div class="col-sm-10 col-sm-offset-2" align="right">
+                                            <a href="./lista.php" class="btn btn-white" type="button">Cancel</a>
+                                            <!-- isso aqui é um if e else ternario dentro do name -->
+                                            <button class="btn btn-primary" type="submit"
+                                                name="<?php echo $categoria->getId() ? 'editar' : 'cadastrar' ?>">Salvar</button>
+                                        </div>
+                                    </div>
+                                </form>
                             </div>
                         </div>
                     </div>
-
                 </div>
-
             </div>
             <div class="footer">
                 <div class="pull-right">
@@ -189,7 +169,6 @@ if (@$_GET['action'] != 'listar' && @$_GET['msg'] != 'errorlistar') {
     </div>
 
 
-
     <!-- Mainly scripts -->
     <script src="../js/jquery-3.1.1.min.js"></script>
     <script src="../js/bootstrap.min.js"></script>
@@ -200,99 +179,16 @@ if (@$_GET['action'] != 'listar' && @$_GET['msg'] != 'errorlistar') {
     <script src="../js/inspinia.js"></script>
     <script src="../js/plugins/pace/pace.min.js"></script>
 
-    <!-- Toastr script -->
-    <script src="../js/plugins/toastr/toastr.min.js"></script>
-
-    <script type="text/javascript">
-    $(function() {
-
-        $('#showtoast').click(function() {
-            var shortCutFunction = $("#toastTypeGroup input:radio:checked").val();
-            var msg = $('#message').val();
-            var title = $('#title').val() || '';
-            var $showDuration = $('#showDuration');
-            var $hideDuration = $('#hideDuration');
-            var $timeOut = $('#timeOut');
-            var $extendedTimeOut = $('#extendedTimeOut');
-            var $showEasing = $('#showEasing');
-            var $hideEasing = $('#hideEasing');
-            var $showMethod = $('#showMethod');
-            var $hideMethod = $('#hideMethod');
-            var toastIndex = toastCount++;
-            toastr.options = {
-                closeButton: $('#closeButton').prop('checked'),
-                debug: $('#debugInfo').prop('checked'),
-                progressBar: $('#progressBar').prop('checked'),
-
-                positionClass: $('#positionGroup input:radio:checked').val() || 'toast-top-right',
-                onclick: null,
-                preventDuplicates: true
-            };
-
+    <!-- iCheck -->
+    <script src="../js/plugins/iCheck/icheck.min.js"></script>
+    <script>
+    $(document).ready(function() {
+        $('.i-checks').iCheck({
+            checkboxClass: 'icheckbox_square-green',
+            radioClass: 'iradio_square-green',
         });
-        <?php if (isset($_GET['action']) && isset($_GET['msg'])) : ?>
-
-
-        // Mensagens de cadastro
-        <?php if ($_GET['action'] == 'cadastrado' && $_GET['msg'] == 'success') : ?>
-
-        toastr.success('Categoria salva com sucesso!')
-
-        <?php endif; ?>
-        <?php if ($_GET['action'] == 'cadastrar' && $_GET['msg'] == 'error') : ?>
-
-        toastr.error('Erro ao cadastrar categoria!')
-
-        <?php endif; ?>
-
-        // Mensagens de atualização
-        <?php if ($_GET['action'] == 'atualizado' && $_GET['msg'] == 'success') : ?>
-
-        toastr.success('Categoria atualizada com sucesso!')
-
-        <?php endif; ?>
-        <?php if ($_GET['action'] == 'atualizar' && $_GET['msg'] == 'error') : ?>
-
-        toastr.error('Erro ao atualizar categoria!')
-
-        <?php endif; ?>
-
-        // Mensagens de exclusao
-        <?php if ($_GET['action'] == 'deletado' && $_GET['msg'] == 'success') : ?>
-
-        toastr.success('Categoria excluída com sucesso!')
-
-        <?php endif; ?>
-        <?php if ($_GET['action'] == 'deletar' && $_GET['msg'] == 'error') : ?>
-
-        toastr.error('Erro ao deletar a categoria!')
-
-        <?php endif; ?>
-
-
-
-
-        <?php if ($_GET['action'] == 'listar' && $_GET['msg'] == 'errorlistar') : ?>
-
-        toastr.error('Erro ao buscar a(s) categoria(s)!')
-
-        <?php endif; ?>
-
-        <?php if ($_GET['action'] == 'buscar' && $_GET['msg'] == 'error') : ?>
-
-        toastr.error('Erro ao buscar a categoria!')
-
-        <?php endif; ?>
-
-
-
-
-
-        <?php endif; ?>
-
-    })
+    });
     </script>
-
 </body>
 
 </html>

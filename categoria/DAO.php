@@ -11,10 +11,12 @@ class CategoriaDAO
             $sql = "INSERT INTO categoria (nome) VALUES(:nome)";
             $p_sql = Conexao::getConexao()->prepare($sql);
             $p_sql->bindValue(":nome", $categoria->getNome());
+
             return $p_sql->execute();
         } catch (Exception $e) {
             // print_r($e);
             header("Location: lista.php?action=cadastrar&msg=error");
+            exit;
         }
     }
 
@@ -30,7 +32,8 @@ class CategoriaDAO
             }
             return $f_lista;
         } catch (Exception $e) {
-            header("Location: lista.php?action=buscar&msg=error");
+            header("Location: lista.php?action=listar&msg=errorlistar");
+            exit;
         }
     }
 
@@ -47,6 +50,7 @@ class CategoriaDAO
             return $categoria;
         } catch (Exception $e) {
             header("Location: lista.php?action=buscar&msg=error");
+            exit;
         }
     }
 
@@ -65,6 +69,7 @@ class CategoriaDAO
             return $p_sql->execute();
         } catch (Exception $e) {
             header("Location: lista.php?action=atualizar&msg=error");
+            exit;
         }
     }
 
@@ -77,6 +82,7 @@ class CategoriaDAO
             return $p_sql->execute();
         } catch (Exception $e) {
             header("Location: lista.php?action=deletar&msg=error");
+            exit;
         }
     }
 
