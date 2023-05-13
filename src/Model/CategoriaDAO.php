@@ -15,7 +15,7 @@ class CategoriaDAO
             return $p_sql->execute();
         } catch (Exception $e) {
             // print_r($e);
-            header("Location: lista.php?action=cadastrar&msg=error");
+            header("Location: ../View/categoria/lista.php?action=cadastrar&msg=error");
             exit;
         }
     }
@@ -32,7 +32,7 @@ class CategoriaDAO
             }
             return $f_lista;
         } catch (Exception $e) {
-            header("Location: lista.php?action=listar&msg=errorlistar");
+            header("Location: ../View/categoria/lista.php?action=listar&msg=errorlistar");
             exit;
         }
     }
@@ -49,7 +49,7 @@ class CategoriaDAO
             $categoria->setNome($result[0]->nome);
             return $categoria;
         } catch (Exception $e) {
-            header("Location: lista.php?action=buscar&msg=error");
+            header("Location: ../View/categoria/lista.php?action=buscar&msg=error");
             exit;
         }
     }
@@ -68,7 +68,7 @@ class CategoriaDAO
             $p_sql->bindValue(":id", $categoria->getId());
             return $p_sql->execute();
         } catch (Exception $e) {
-            header("Location: lista.php?action=atualizar&msg=error");
+            header("Location: ../View/categoria/lista.php?action=atualizar&msg=error");
             exit;
         }
     }
@@ -81,7 +81,7 @@ class CategoriaDAO
             $p_sql->bindValue(":id", $categoria->getId());
             return $p_sql->execute();
         } catch (Exception $e) {
-            header("Location: lista.php?action=deletar&msg=error");
+            header("Location: ../View/categoria/lista.php?action=deletar&msg=error");
             exit;
         }
     }

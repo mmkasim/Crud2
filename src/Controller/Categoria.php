@@ -1,7 +1,7 @@
 <?php
 include_once('../conexao.php');
-include_once('./model.php');
-include_once('./dao.php');
+include_once('../Model/CategoriaModel.php');
+include_once('../Model/CategoriaDAO.php');
 
 //instancia as classes
 $categoria = new Categoria();
@@ -16,7 +16,7 @@ $d = filter_input_array(INPUT_POST);
 if (isset($_POST['cadastrar'])) {
     $categoria->setNome($d['nome']);
     $categoriadao->create($categoria);
-    header("Location: lista.php?action=cadastrado&msg=success");
+    header("Location: ../View/categoria/lista.php?action=cadastrado&msg=success");
 }
 // se a requisição for editar
 else if (isset($_POST['editar'])) {
@@ -26,7 +26,7 @@ else if (isset($_POST['editar'])) {
 
     $categoriadao->update($categoria);
 
-    header("Location: lista.php?action=atualizado&msg=success");
+    header("Location: ../View/categoria/lista.php?action=atualizado&msg=success");
 }
 // se a requisição for deletar
 else if (isset($_GET['del'])) {
@@ -35,7 +35,7 @@ else if (isset($_GET['del'])) {
 
     $categoriadao->delete($categoria);
 
-    header("Location: lista.php?action=deletado&msg=success");
+    header("Location: ../View/categoria/lista.php?action=deletado&msg=success");
 } else {
-    header("Location: lista.php");
+    header("Location: ../View/categoria/lista.php");
 }

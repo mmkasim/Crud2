@@ -1,7 +1,7 @@
 <?php
-include_once('../conexao.php');
-include_once('./DAO.php');
-include_once('./Model.php');
+include_once('../../conexao.php');
+include_once('../../Model/CategoriaDAO.php');
+include_once('../../Model/CategoriaModel.php');
 $id = @$_GET['id'];
 
 //instancia as classes
@@ -23,13 +23,13 @@ if (isset($id)) {
 
     <title>INSPINIA | Basic Form</title>
 
-    <link href="../css/bootstrap.min.css" rel="stylesheet">
-    <link href="../font-awesome/css/font-awesome.css" rel="stylesheet">
-    <link href="../css/plugins/iCheck/custom.css" rel="stylesheet">
-    <link href="../css/animate.css" rel="stylesheet">
-    <link href="../css/style.css" rel="stylesheet">
+    <link href="../../../assets/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../../../assets/font-awesome/css/font-awesome.css" rel="stylesheet">
+    <link href="../../../assets/css/plugins/iCheck/custom.css" rel="stylesheet">
+    <link href="../../../assets/css/animate.css" rel="stylesheet">
+    <link href="../../../assets/css/style.css" rel="stylesheet">
 
-    <link href="../css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css" rel="stylesheet">
+    <link href="../../../assets/css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css" rel="stylesheet">
 
 </head>
 
@@ -42,19 +42,19 @@ if (isset($id)) {
                 <ul class="nav metismenu" id="side-menu">
                     <li class="nav-header">
                         <div class="dropdown profile-element"> <span>
-                                <img alt="image" class="img-circle" src="../img/profile_small.jpg" />
+                                <img alt="image" class="img-circle" src="../../../assets/img/profile_small.jpg" />
                             </span>
-                            <a data-toggle="dropdown" class="dropdown-toggle" href="../#">
+                            <a data-toggle="dropdown" class="dropdown-toggle" href="../../../assets/#">
                                 <span class="clear"> <span class="block m-t-xs"> <strong class="font-bold">David
                                             Williams</strong>
                                     </span> <span class="text-muted text-xs block">Art Director <b
                                             class="caret"></b></span> </span> </a>
                             <ul class="dropdown-menu animated fadeInRight m-t-xs">
-                                <li><a href="../profile.html">Profile</a></li>
-                                <li><a href="../contacts.html">Contacts</a></li>
-                                <li><a href="../mailbox.html">Mailbox</a></li>
+                                <li><a href="../../../assets/profile.html">Profile</a></li>
+                                <li><a href="../../../assets/contacts.html">Contacts</a></li>
+                                <li><a href="../../../assets/mailbox.html">Mailbox</a></li>
                                 <li class="divider"></li>
-                                <li><a href="../login.html">Logout</a></li>
+                                <li><a href="../../../assets/login.html">Logout</a></li>
                             </ul>
                         </div>
                         <div class="logo-element">
@@ -62,14 +62,15 @@ if (isset($id)) {
                         </div>
                     </li>
                     <li>
-                        <a href="../index.html"><i class="fa fa-th-large"></i> <span class="nav-label">Dashboards</span>
+                        <a href="../../../assets/index.html"><i class="fa fa-th-large"></i> <span
+                                class="nav-label">Dashboards</span>
                             <span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level collapse">
-                            <li><a href="../index.html">Dashboard v.1</a></li>
-                            <li><a href="../dashboard_2.html">Dashboard v.2</a></li>
-                            <li><a href="../dashboard_3.html">Dashboard v.3</a></li>
-                            <li><a href="../dashboard_4_1.html">Dashboard v.4</a></li>
-                            <li><a href="../dashboard_5.html">Dashboard v.5 </a></li>
+                            <li><a href="../../../assets/index.html">Dashboard v.1</a></li>
+                            <li><a href="../../../assets/dashboard_2.html">Dashboard v.2</a></li>
+                            <li><a href="../../../assets/dashboard_3.html">Dashboard v.3</a></li>
+                            <li><a href="../../../assets/dashboard_4_1.html">Dashboard v.4</a></li>
+                            <li><a href="../../../assets/dashboard_5.html">Dashboard v.5 </a></li>
                         </ul>
                     </li>
 
@@ -88,7 +89,7 @@ if (isset($id)) {
             <div class="row border-bottom">
                 <nav class="navbar navbar-static-top" role="navigation" style="margin-bottom: 0">
                     <div class="navbar-header">
-                        <a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="../#"><i
+                        <a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="../../../assets/#"><i
                                 class="fa fa-bars"></i> </a>
 
 
@@ -101,7 +102,7 @@ if (isset($id)) {
 
 
                         <li>
-                            <a href="../login.html">
+                            <a href="../../../assets/login.html">
                                 <i class="fa fa-sign-out"></i> Log out
                             </a>
                         </li>
@@ -131,7 +132,7 @@ if (isset($id)) {
 
                             </div>
                             <div class="ibox-content">
-                                <form method="post" action="./Controle.php" class="form-horizontal">
+                                <form method="post" action="../../Controller/Categoria.php" class="form-horizontal">
                                     <div class="form-group"><label class="col-sm-2 control-label">Nome</label>
 
                                         <div class="col-sm-10"><input type="text" name="nome"
@@ -170,17 +171,17 @@ if (isset($id)) {
 
 
     <!-- Mainly scripts -->
-    <script src="../js/jquery-3.1.1.min.js"></script>
-    <script src="../js/bootstrap.min.js"></script>
-    <script src="../js/plugins/metisMenu/jquery.metisMenu.js"></script>
-    <script src="../js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+    <script src="../../../assets/js/jquery-3.1.1.min.js"></script>
+    <script src="../../../assets/js/bootstrap.min.js"></script>
+    <script src="../../../assets/js/plugins/metisMenu/jquery.metisMenu.js"></script>
+    <script src="../../../assets/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
 
     <!-- Custom and plugin javascript -->
-    <script src="../js/inspinia.js"></script>
-    <script src="../js/plugins/pace/pace.min.js"></script>
+    <script src="../../../assets/js/inspinia.js"></script>
+    <script src="../../../assets/js/plugins/pace/pace.min.js"></script>
 
     <!-- iCheck -->
-    <script src="../js/plugins/iCheck/icheck.min.js"></script>
+    <script src="../../../assets/js/plugins/iCheck/icheck.min.js"></script>
     <script>
     $(document).ready(function() {
         $('.i-checks').iCheck({
