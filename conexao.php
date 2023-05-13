@@ -1,26 +1,28 @@
 <?php
 include_once('config.php');
-$host = HOST_DB;
-$port = PORT;
-$dbname = DBNAME;
-$user = USER_DB;
-$password = PASSWORD_DB;
 
-$dsn = "mysql:host=$host;port=$port;dbname=$dbname;user=$user;password=$password";
+class Conexao
+{
 
-try {
-    // criando nova conexão
-    $conexaoPDO = new PDO($dsn);
-    $conexaoPDO->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    public static $instance;
 
-   // $stmt = $conexaoPDO->prepare('SELECT * FROM usuario');
-   // $stmt->execute();
-
-    // verifica se a conexão foi estabelecida
-    if ($conexaoPDO) {
-        // echo "Conecção com o banco <strong>$dbname</strong> estabelecida com sucesso!";
+    private function __construct()
+    {
+        //
     }
-} catch (PDOException $e) {
-    // reporta as mensagens de erro
-    echo $e->getMessage();
+
+    public static function getConexao()
+    {
+        $host = HOST_DB;
+        $dbname = DBNAME;
+        $user = USER_DB;
+        $password = PASSWORD_DB;
+        if (!isset(self::$instance)) {
+            self::$instance = new PDO("mysql:host=$host;dbname=$dbname", $user, $password, array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8"));
+            self::$instance->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            self::$instance->setAttribute(PDO::ATTR_ORACLE_NULLS, PDO::NULL_EMPTY_STRING);
+        }
+
+        return self::$instance;
+    }
 }

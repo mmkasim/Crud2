@@ -1,17 +1,12 @@
 <?php
 include_once('../conexao.php');
+include_once('./DAO.php');
+include_once('./Model.php');
 
-// buscando todos os perfils
-$sql = "SELECT id, nome
-FROM categoria;
-";
-$stm = $conexaoPDO->prepare($sql);
-$stm->execute();
-$categorias = $stm->fetchAll(PDO::FETCH_OBJ);
-
-//var_dump($dados);
-
+//instancia as classes
+$categoriadao = new CategoriaDAO();
 ?>
+
 
 <!DOCTYPE html>
 <html>
@@ -137,15 +132,17 @@ $categorias = $stm->fetchAll(PDO::FETCH_OBJ);
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <?php foreach ($categorias as $categoria) : ?>
+                                        <!-- acessando o objeto read dentro da dao -->
+                                        <?php foreach ($categoriadao->read() as $categoria) : ?>
                                         <tr>
-                                            <td> <?php echo $categoria->id; ?> </td>
-                                            <td> <?php echo $categoria->nome; ?> </td>
+                                            <td> <?php echo $categoria->getId(); ?> </td>
+                                            <td> <?php echo $categoria->getNome(); ?> </td>
                                             <td>
                                                 <button class="btn btn-info btn-sm m-r-sm" type="button"><i
                                                         class="fa fa-paste"></i>
                                                     Editar</button>
-                                                <button class="btn btn-danger btn-sm" type="button"><i
+                                                <a href="./Controle.php?del=<?php echo $categoria->getId(); ?>"
+                                                    class="btn btn-danger btn-sm" type="button"><i
                                                         class="fa fa-close"></i>
                                                     Excluir</button>
 
