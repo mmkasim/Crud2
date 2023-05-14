@@ -1,14 +1,14 @@
 <?php
 include_once('../../conexao.php');
-include_once('../../Model/CategoriaDAO.php');
-include_once('../../Model/CategoriaModel.php');
+include_once('../../Model/EnderecoDAO.php');
+include_once('../../Model/EnderecoModel.php');
 
 //instancia as classes
-$categoriadao = new CategoriaDAO();
-$categorias = [];
+$enderecodao = new EnderecoDAO();
+$enderecos = [];
 
 if (@$_GET['action'] != 'listar' && @$_GET['msg'] != 'errorlistar') {
-    $categorias = $categoriadao->read();
+    $enderecos = $enderecodao->read();
 }
 
 
@@ -77,12 +77,11 @@ if (@$_GET['action'] != 'listar' && @$_GET['msg'] != 'errorlistar') {
                     </li>
 
                     <li>
-                        <a href="./lista.php"><i class="fa fa-diamond"></i> <span
+                        <a href="../categoria/lista.php"><i class="fa fa-diamond"></i> <span
                                 class="nav-label">Categorias</span></a>
                     </li>
                     <li>
-                        <a href="../endereco/lista.php"><i class="fa fa-diamond"></i> <span
-                                class="nav-label">Endereços</span></a>
+                        <a href="./lista.php"><i class="fa fa-diamond"></i> <span class="nav-label">Endereços</span></a>
                     </li>
 
 
@@ -118,7 +117,7 @@ if (@$_GET['action'] != 'listar' && @$_GET['msg'] != 'errorlistar') {
             </div>
             <div class="row wrapper border-bottom white-bg page-heading">
                 <div class="col-lg-10">
-                    <h2>Categorias</h2>
+                    <h2>Enderecos</h2>
 
                 </div>
                 <div class="col-lg-2">
@@ -131,7 +130,7 @@ if (@$_GET['action'] != 'listar' && @$_GET['msg'] != 'errorlistar') {
                     <div class="col-lg-12">
                         <div class="ibox float-e-margins">
                             <div class="ibox-title">
-                                <h5>Lista de categorias </h5>
+                                <h5>Lista de enderecos </h5>
 
                                 <a href="./form.php" class="btn btn-info btn-sm pull-right" type="button"><i
                                         class="fa fa-plus"></i><strong> Nova</strong>
@@ -152,16 +151,16 @@ if (@$_GET['action'] != 'listar' && @$_GET['msg'] != 'errorlistar') {
                                     </thead>
                                     <tbody>
                                         <!-- acessando o objeto read dentro da dao -->
-                                        <?php foreach ($categorias as $categoria) : ?>
+                                        <?php foreach ($enderecos as $endereco) : ?>
                                         <tr>
-                                            <td> <?php echo $categoria->getId(); ?> </td>
-                                            <td> <?php echo $categoria->getNome(); ?> </td>
+                                            <td> <?php echo $endereco->getId(); ?> </td>
+                                            <td> <?php echo $endereco->getCep(); ?> </td>
                                             <td>
-                                                <a href="./form.php?id=<?php echo $categoria->getId(); ?>"
+                                                <a href="./form.php?id=<?php echo $endereco->getId(); ?>"
                                                     class="btn btn-info btn-sm m-r-sm" type="button"><i
                                                         class="fa fa-paste"></i>
                                                     Editar</a>
-                                                <a href="../../Controller/Categoria.php?del=<?php echo $categoria->getId(); ?>"
+                                                <a href="../../Controller/Endereco.php?del=<?php echo $endereco->getId(); ?>"
                                                     class="btn btn-danger btn-sm" type="button"><i
                                                         class="fa fa-close"></i>
                                                     Excluir</a>
@@ -241,36 +240,36 @@ if (@$_GET['action'] != 'listar' && @$_GET['msg'] != 'errorlistar') {
         // Mensagens de cadastro
         <?php if ($_GET['action'] == 'cadastrado' && $_GET['msg'] == 'success') : ?>
 
-        toastr.success('Categoria salva com sucesso!')
+        toastr.success('Endereco salva com sucesso!')
 
         <?php endif; ?>
         <?php if ($_GET['action'] == 'cadastrar' && $_GET['msg'] == 'error') : ?>
 
-        toastr.error('Erro ao cadastrar categoria!')
+        toastr.error('Erro ao cadastrar endereco!')
 
         <?php endif; ?>
 
         // Mensagens de atualização
         <?php if ($_GET['action'] == 'atualizado' && $_GET['msg'] == 'success') : ?>
 
-        toastr.success('Categoria atualizada com sucesso!')
+        toastr.success('Endereco atualizada com sucesso!')
 
         <?php endif; ?>
         <?php if ($_GET['action'] == 'atualizar' && $_GET['msg'] == 'error') : ?>
 
-        toastr.error('Erro ao atualizar categoria!')
+        toastr.error('Erro ao atualizar endereco!')
 
         <?php endif; ?>
 
         // Mensagens de exclusao
         <?php if ($_GET['action'] == 'deletado' && $_GET['msg'] == 'success') : ?>
 
-        toastr.success('Categoria excluída com sucesso!')
+        toastr.success('Endereco excluída com sucesso!')
 
         <?php endif; ?>
         <?php if ($_GET['action'] == 'deletar' && $_GET['msg'] == 'error') : ?>
 
-        toastr.error('Erro ao deletar a categoria!')
+        toastr.error('Erro ao deletar a endereco!')
 
         <?php endif; ?>
 
@@ -279,13 +278,13 @@ if (@$_GET['action'] != 'listar' && @$_GET['msg'] != 'errorlistar') {
 
         <?php if ($_GET['action'] == 'listar' && $_GET['msg'] == 'errorlistar') : ?>
 
-        toastr.error('Erro ao buscar a(s) categoria(s)!')
+        toastr.error('Erro ao buscar a(s) endereco(s)!')
 
         <?php endif; ?>
 
         <?php if ($_GET['action'] == 'buscar' && $_GET['msg'] == 'error') : ?>
 
-        toastr.error('Erro ao buscar a categoria!')
+        toastr.error('Erro ao buscar a endereco!')
 
         <?php endif; ?>
 
