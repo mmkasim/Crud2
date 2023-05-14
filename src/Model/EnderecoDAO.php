@@ -32,7 +32,19 @@ class EnderecoDAO
     public function read()
     {
         try {
-            $sql = "SELECT id, cep, endereco, numero, complemento, bairro, fk_usuario_cpf, fk_cidade_id FROM endereco;";
+            $sql = "SELECT 
+            e.id,
+            e.cep,
+            e.endereco,
+            e.numero,
+            e.complemento,
+            e.bairro,
+            e.fk_usuario_cpf,
+            e.fk_cidade_id,
+            c.nome as cidade
+        FROM
+            endereco e, cidade c
+            WHERE c.id=e.fk_cidade_id";
             $result = Conexao::getConexao()->query($sql);
             $lista = $result->fetchAll(PDO::FETCH_ASSOC);
             $f_lista = array();
@@ -120,6 +132,7 @@ class EnderecoDAO
         $endereco->setBairro($row['bairro']);
         $endereco->setFk_usuario_cpf($row['fk_usuario_cpf']);
         $endereco->setFk_cidade_id($row['fk_cidade_id']);
+        $endereco->setCidade($row['cidade']);
 
 
         return $endereco;

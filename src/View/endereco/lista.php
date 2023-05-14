@@ -144,7 +144,11 @@ if (@$_GET['action'] != 'listar' && @$_GET['msg'] != 'errorlistar') {
                                     <thead>
                                         <tr>
                                             <th>Código</th>
-                                            <th>Nome</th>
+                                            <th>Cidade</th>
+                                            <th>Bairro</th>
+                                            <th>Endereço</th>
+                                            <th>Número</th>
+                                            <th>CEP</th>
                                             <th>Ações</th>
 
                                         </tr>
@@ -154,6 +158,10 @@ if (@$_GET['action'] != 'listar' && @$_GET['msg'] != 'errorlistar') {
                                         <?php foreach ($enderecos as $endereco) : ?>
                                         <tr>
                                             <td> <?php echo $endereco->getId(); ?> </td>
+                                            <td> <?php echo $endereco->getCidade(); ?> </td>
+                                            <td> <?php echo $endereco->getBairro(); ?> </td>
+                                            <td> <?php echo $endereco->getEndereco(); ?> </td>
+                                            <td> <?php echo $endereco->getNumero(); ?> </td>
                                             <td> <?php echo $endereco->getCep(); ?> </td>
                                             <td>
                                                 <a href="./form.php?id=<?php echo $endereco->getId(); ?>"

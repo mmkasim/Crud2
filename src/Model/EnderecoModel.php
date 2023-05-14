@@ -11,6 +11,7 @@ class Endereco
     private $bairro;
     private $fk_usuario_cpf;
     private $fk_cidade_id;
+    private $cidade;
 
 
     /**
@@ -169,6 +170,26 @@ class Endereco
     public function setFk_cidade_id($fk_cidade_id)
     {
         $this->fk_cidade_id = $fk_cidade_id;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of cidade
+     */
+    public function getCidade()
+    {
+        return $this->cidade;
+    }
+
+    /**
+     * Set the value of cidade
+     *
+     * @return  self
+     */
+    public function setCidade($cidade)
+    {
+        $this->cidade = $cidade;
 
         return $this;
     }

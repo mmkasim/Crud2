@@ -1,16 +1,24 @@
 <?php
 include_once('../../conexao.php');
 include_once('../../Model/EnderecoDAO.php');
+include_once('../../Model/EstadoDAO.php');
 include_once('../../Model/EnderecoModel.php');
+include_once('../../Model/EstadoModel.php');
+
 $id = @$_GET['id'];
 
 //instancia as classes
 $enderecodao = new EnderecoDAO();
+$estadodao = new EstadoDAO();
 $endereco = new Endereco();
+$estado = new Estado();
 $endereco->setId($id);
 if (isset($id)) {
     $endereco = $enderecodao->readById($endereco);
 };
+$estados = $estadodao->read();
+
+$id_usuario = '03211247157';
 
 ?>
 <!DOCTYPE html>
@@ -132,12 +140,76 @@ if (isset($id)) {
                             </div>
                             <div class="ibox-content">
                                 <form method="post" action="../../Controller/Endereco.php" class="form-horizontal">
-                                    <div class="form-group"><label class="col-sm-2 control-label">Nome</label>
+                                    <div class="form-group"><label class="col-sm-2 control-label">Estado</label>
 
-                                        <div class="col-sm-10"><input type="text" name="nome"
+                                        <div class="col-sm-10"><select class="form-control m-b" name="estado">
+
+                                                <?php foreach ($estados as $estado) : ?>
+                                                <option value="<?php echo $estado->getId(); ?>">
+                                                    <?php echo $estado->getNome(); ?>
+                                                </option>
+                                                <?php endforeach; ?>
+                                            </select>
+
+
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group"><label class="col-sm-2 control-label">Cidade</label>
+
+                                        <div class="col-sm-10"><select class="form-control m-b" name="fk_cidade_id">
+                                                <option value="11">option 1</option>
+                                                <option value="121">option 2</option>
+                                                <option value="211">option 3</option>
+                                                <option value="44">option 4</option>
+                                            </select>
+
+
+                                        </div>
+                                    </div>
+
+
+
+
+
+
+
+                                    <div class="form-group"><label class="col-sm-2 control-label">Bairro</label>
+
+                                        <div class="col-sm-10"><input type="text" name="bairro"
+                                                value="<?php echo $endereco->getBairro() ?>" class="form-control">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group"><label class="col-sm-2 control-label">Endereço/Rua</label>
+
+                                        <div class="col-sm-10"><input type="text" name="endereco"
+                                                value="<?php echo $endereco->getEndereco() ?>" class="form-control">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group"><label class="col-sm-2 control-label">Numero</label>
+
+                                        <div class="col-sm-10"><input type="text" name="numero"
+                                                value="<?php echo $endereco->getNumero() ?>" class="form-control">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group"><label class="col-sm-2 control-label">Complemento</label>
+
+                                        <div class="col-sm-10"><input type="text" name="complemento"
+                                                value="<?php echo $endereco->getComplemento() ?>" class="form-control">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group"><label class="col-sm-2 control-label">CEP</label>
+
+                                        <div class="col-sm-10"><input type="text" name="cep"
                                                 value="<?php echo $endereco->getCep() ?>" class="form-control">
                                         </div>
                                     </div>
+
+                                    <input type="hidden" name="fk_usuario_cpf" value="<?php echo $id_usuario; ?>">
                                     <div class="hr-line"></div>
                                     <input type="hidden" name="id" value="<?= $endereco->getId() ?>" />
 
